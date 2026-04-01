@@ -17,3 +17,17 @@ export interface User
         photoUrl: string
     }
 }
+
+export interface FeedUsers {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  about: string;
+  skills: string[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  photoUrl: string;
+}

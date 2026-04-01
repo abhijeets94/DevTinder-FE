@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
@@ -8,15 +8,14 @@ import { BASE_URL } from "../utils/constants";
 export const Login = () => {
   const [emailId, setEmailId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleEmailTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setEmailId(e.target.value);
   };
   const handlePasswordTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setPassword(e.target.value);
   };
 
@@ -30,12 +29,18 @@ export const Login = () => {
         },
         { withCredentials: true },
       );
+      console.log({ result });
+
       if (result?.data) {
         dispatch(addUser(result.data));
-        return navigate("/")
+        return navigate("/");
       }
     } catch (e) {
-      console.error("Error: ", e);
+      const errorMessage =
+        ((e as AxiosError)?.response?.data as { message: string })?.message ||
+        "Bad credentials";
+      setError(errorMessage);
+      console.error(errorMessage);
     }
   };
 
@@ -60,6 +65,7 @@ export const Login = () => {
               className="input"
             />
           </div>
+          {error && <p className="text-red-500">{error}</p>}
           <div className="card-actions justify-center mt-2">
             <button className="btn btn-primary w-full" onClick={handleLogin}>
               Login

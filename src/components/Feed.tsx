@@ -13,12 +13,11 @@ export const Feed = () => {
   );
   const getFeed = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/feed`, {
+      const res = await axios.get(`${BASE_URL}/user/feed`, {
         withCredentials: true,
       });
-      console.log({ res: res?.data });
 
-      dispatch(addFeed(res?.data));
+      dispatch(addFeed(res?.data?.data));
     } catch (er) {
       console.error("ERror: " + er);
     }
@@ -29,9 +28,9 @@ export const Feed = () => {
   }, []);
   if (feed)
     return (
-      <div className="grid grid-cols-3 gap-4">
+      <div className="justify-center my-10 gap-3 grid grid-cols-2">
         {feed?.map((user: FeedUsers) => (
-          <UserCard user={user} />
+          <UserCard key={user._id} user={user} />
         ))}
       </div>
     );

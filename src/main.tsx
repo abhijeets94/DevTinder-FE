@@ -8,6 +8,8 @@ import { Login } from "./components/Login.tsx";
 import { Feed } from "./components/Feed.tsx";
 import { appStore } from "./utils/appStore.ts";
 import { Provider } from "react-redux";
+import { Connections } from "./components/Connections.tsx";
+import { Request } from "./components/Requests.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,6 +20,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/" element={<Feed />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/connections" element={<Connections />} />
+            <Route path="/requests" element={<Request />} />
           </Route>
         </Routes>
       </BrowserRouter>

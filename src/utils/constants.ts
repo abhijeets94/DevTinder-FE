@@ -19,15 +19,17 @@ export interface User
 }
 
 export interface FeedUsers {
-  _id: string;
+  _id?: string;
   firstName: string;
   lastName: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   about: string;
-  skills: string[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  age: string;
+  gender: string;
+  skills?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
   photoUrl: string;
 }

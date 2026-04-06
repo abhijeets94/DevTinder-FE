@@ -16,7 +16,7 @@ export const Feed = () => {
       const res = await axios.get(`${BASE_URL}/user/feed`, {
         withCredentials: true,
       });
-
+      
       dispatch(addFeed(res?.data?.data));
     } catch (er) {
       console.error("ERror: " + er);
@@ -26,12 +26,12 @@ export const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
-  if (feed)
+  console.log({lengt: feed});
+  
+  if (!feed || feed?.length === 0) return <div>Nothing to show here!</div>
     return (
-      <div className="justify-center my-10 gap-3 grid grid-cols-2">
-        {feed?.map((user: FeedUsers) => (
-          <UserCard key={user._id} user={user} />
-        ))}
+      <div className="flex justify-center my-10 gap-3">
+        <UserCard key={feed?.[0]._id} user={feed[0]} />
       </div>
     );
 };

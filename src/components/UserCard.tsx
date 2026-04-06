@@ -2,6 +2,7 @@ import axios from "axios";
 import { BASE_URL, type FeedUsers } from "../utils/constants"
 import { useDispatch } from "react-redux";
 import { removeRequest } from "../utils/requestSlice";
+import { removeFeedUser } from "../utils/feedSlice";
 
 export const UserCard = ({user, isPreview = false, isRequest = false, requestId = ""}: {user: FeedUsers, isPreview?: boolean, isRequest?: boolean, requestId?: string} ) => {
   const dispatch = useDispatch();
@@ -10,6 +11,8 @@ export const UserCard = ({user, isPreview = false, isRequest = false, requestId 
        await axios.post(`${BASE_URL}/request/${requestType}/${status}/${requestType === "review" ? requestId : user._id }`, {}, {withCredentials: true});
       if(requestType === "review") {
         dispatch(removeRequest(requestId));
+      } else {
+        dispatch(removeFeedUser(user._id));
       }
       
     } catch (e) {

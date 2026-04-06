@@ -1,15 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { FeedUsers } from "./constants";
+
+type UserState = FeedUsers | null;
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {user: ""},
+    initialState: null as UserState ,
     reducers: {
-        addUser: (state, action) => {
-            state.user = action.payload;
-        },
-        removeUser: (state) => {
-            state.user = "";
-        }
+        addUser: (_, action) => action.payload,
+        removeUser: () => null
     }
     
 })

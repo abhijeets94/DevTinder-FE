@@ -1,14 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { BASE_URL, type User } from "../utils/constants";
-import { Link, useNavigate } from "react-router";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
+import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import type { RootState } from "../utils/appStore";
 
 const NavBar = () => {
-  const { user }  = useSelector((store: {user: {user: User}}) => store.user)
+  const user = useSelector((store: RootState ) => store.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(user);
+  
   const handleLogout = async () => {
     try {
       await axios.post(`${BASE_URL}/logout`, {}, {withCredentials: true});
@@ -24,7 +26,7 @@ const NavBar = () => {
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl">
             {user
-              ? `Welcome ${user?.data?.firstName} to Dev 💻 Tinder!! `
+              ? `Welcome ${user?.firstName} to Dev 💻 Tinder!! `
               : "Dev 💻 Tinder"}
           </Link>
         </div>
@@ -40,7 +42,7 @@ const NavBar = () => {
                   <img
                     alt="Tailwind CSS Navbar component"
                     src={
-                      user?.data?.photoUrl ??
+                      user?.photoUrl ??
                       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                     }
                   />

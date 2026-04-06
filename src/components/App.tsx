@@ -2,7 +2,8 @@ import axios, { AxiosError, type AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router";
-import { BASE_URL, type User } from "../utils/constants";
+import type { RootState } from "../utils/appStore";
+import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 import { Footer } from "./Footer";
 import NavBar from "./NavBar";
@@ -10,7 +11,7 @@ import NavBar from "./NavBar";
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const  user  = useSelector((store: {user: {user: User}}) => store.user)
+  const  user  = useSelector((store: RootState) => store.user)
   console.log({user});
   
   const fetchUser = async () => {

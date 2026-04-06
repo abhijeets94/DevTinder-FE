@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { UserCard } from "./UserCard";
 import axios, { AxiosError } from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, type FeedUsers } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
-export const EditProfile = ({user}) => {
+interface EditProfileInterfaceProps {
+  user: {
+    data: FeedUsers;
+  }
+}
+
+export const EditProfile = ({user} : EditProfileInterfaceProps) => {
     
     const [firstName, setFirstName] = useState<string>(user?.data?.firstName);
       const [lastName, setLastName] = useState<string>(user?.data?.lastName);

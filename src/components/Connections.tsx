@@ -9,6 +9,7 @@ import { UserCard } from "./UserCard";
 export const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store: RootState) => store.connection);
+  
 
   const fetchConnections = async () => {
     try {
@@ -27,7 +28,7 @@ export const Connections = () => {
   useEffect(() => {
     void fetchConnections();
   }, []);
-  if (!connections || !connections.length) return <div className="flex justify-center h-screen items-center mb-3 text-4xl"> No Connection found!</div>
+  if (!connections || !connections?.length) return <div className="flex justify-center h-screen items-center mb-3 text-4xl"> No Connection found!</div>
     return (
       <>
       <div className="text-3xl flex justify-center mt-2">Connections</div>

@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { FeedUsers } from "./constants";
+
+type FeedState = FeedUsers[] | null;
 
 const feedSlice = createSlice({
     name: 'feed',
-    initialState: null,
+    initialState: null as FeedState,
     reducers: {
-        addFeed: (state, action) => action.payload,
+        addFeed: (_, action) => action.payload,
         removeFeedUser: (state, action) => {
             if(Array.isArray(state)) {
                 const newFeed = state.filter((c) => c._id !== action.payload)

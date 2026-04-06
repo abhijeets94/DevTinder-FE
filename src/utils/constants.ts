@@ -32,4 +32,5 @@ export interface FeedUsers {
   updatedAt?: string;
   __v?: number;
   photoUrl: string;
+  fromUserId?: FeedUsers;
 }

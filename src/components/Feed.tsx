@@ -26,7 +26,6 @@ export const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
-  console.log({lengt: feed});
   
   if (!feed || feed?.length === 0) return <div>Nothing to show here!</div>
     return (

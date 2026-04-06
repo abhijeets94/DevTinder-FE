@@ -2,7 +2,7 @@ import axios, { type AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../utils/appStore";
-import { BASE_URL, type FeedUsers } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 import { addRequest } from "../utils/requestSlice";
 import { UserCard } from "./UserCard";
 
@@ -16,7 +16,6 @@ export const Request = () => {
         `${BASE_URL}/request/received`,
         { withCredentials: true },
       );
-      console.log({ request: requests?.data?.data });
       const requestList = requests?.data?.data;
       dispatch(addRequest(requestList));
     } catch (e) {

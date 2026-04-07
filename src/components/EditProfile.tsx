@@ -41,8 +41,8 @@ export const EditProfile = ({ user }: EditProfileInterfaceProps) => {
           { withCredentials: true },
         )
         .then((user: AxiosResponse) => {
-          console.log({ user: user.data });
-          dispatch(addUser(user.data));
+           const userData = user.data;
+          dispatch(addUser(userData));
         });
       setError("");
       setSuccess(true);

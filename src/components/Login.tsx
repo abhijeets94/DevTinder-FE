@@ -1,9 +1,9 @@
-import { useState } from "react";
 import axios, { AxiosError, type AxiosResponse } from "axios";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router";
 import { BASE_URL } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
 
 export const Login = () => {
   const [emailId, setEmailId] = useState<string>("");
@@ -30,7 +30,7 @@ export const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const result: { data: string } = await axios.post(
+      const result: AxiosResponse = await axios.post(
         `${BASE_URL}/login`,
         {
           email: emailId,
@@ -41,7 +41,8 @@ export const Login = () => {
       console.log({ result });
 
       if (result?.data) {
-        dispatch(addUser(result.data));
+        const userData = result?.data?.data;
+        dispatch(addUser(userData));
         return navigate("/");
       }
     } catch (e) {
@@ -57,8 +58,8 @@ export const Login = () => {
     try {
       const res: AxiosResponse = await axios.post(`${BASE_URL}/signup`, {firstName, lastName, email: emailId, password}, {withCredentials: true});
       console.log({resSignUp: res?.data});
-      
-      dispatch(addUser(res?.data));
+      const userData = res?.data;
+      dispatch(addUser(userData));
 
 
       navigate("/profile");

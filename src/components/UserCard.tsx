@@ -3,9 +3,11 @@ import { BASE_URL, type FeedUsers } from "../utils/constants"
 import { useDispatch } from "react-redux";
 import { removeRequest } from "../utils/requestSlice";
 import { removeFeedUser } from "../utils/feedSlice";
+import { useNavigate } from "react-router";
 
 export const UserCard = ({user, isPreview = false, isRequest = false, requestId = ""}: {user: FeedUsers | undefined, isPreview?: boolean, isRequest?: boolean, requestId?: string} ) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleRequestResponse = async (status: string, requestType: "review" | "send") => {
     try {
        await axios.post(`${BASE_URL}/request/${requestType}/${status}/${requestType === "review" ? requestId : user?._id }`, {}, {withCredentials: true});
@@ -18,6 +20,10 @@ export const UserCard = ({user, isPreview = false, isRequest = false, requestId 
     } catch (e) {
       console.error('Error: ' + e);
     }
+  }
+
+  const handleChatClick = () => {
+     navigate(`/chat/${user?._id}`)
   }
     return (
          <div className="card bg-base-100 w-96 shadow-sm">
@@ -41,6 +47,9 @@ export const UserCard = ({user, isPreview = false, isRequest = false, requestId 
        {(!isPreview && isRequest) && <div className="card-actions justify-center my-4">
           <button className="btn btn-primary" onClick={() => handleRequestResponse("rejected", "review")}>Reject</button>
           <button className="btn btn-secondary" onClick={() => handleRequestResponse("accepted", "review")}>Accept</button>
+        </div>}
+       {(isPreview && !isRequest) && <div className="card-actions justify-center my-4">
+          <button className="btn btn-primary" onClick={handleChatClick}>Chat</button>
         </div>}
       </div>
     </div>

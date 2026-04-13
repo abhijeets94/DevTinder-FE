@@ -10,6 +10,7 @@ import { appStore } from "./utils/appStore.ts";
 import { Provider } from "react-redux";
 import { Connections } from "./components/Connections.tsx";
 import { Request } from "./components/Requests.tsx";
+import { Chat } from "./components/Chat.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/profile" element={<Profile />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Request />} />
+            <Route path="/chat/:toUserId" element={<Chat />} />
           </Route>
         </Routes>
       </BrowserRouter>
